@@ -799,26 +799,29 @@
 }
 
 
-        function displayResult(data) {
-            const container = document.getElementById('resultsContainer');
-            const cleanExtract = data.extract?.replace(/'/g, "&#39;").replace(/"/g, "&quot;") || 'No summary available.';
-            const cleanTitle = data.title?.replace(/'/g, "&#39;").replace(/"/g, "&quot;") || 'Unknown';
-            
-            container.innerHTML = `
-                <div class="result-card">
-                    <h3 class="result-title">${data.title}</h3>
-                    <p class="result-summary">${data.extract || 'No summary available.'}</p>
-                    <div class="result-actions">
-                        <a href="${data.content_urls?.desktop?.page || '#'}" target="_blank" class="btn btn-primary btn-small">📖 Read Full Article</a>
-                        <button class="btn btn-secondary btn-small" onclick="speakText('${cleanExtract}')">🔊 Listen</button>
-                        <button class="btn btn-secondary btn-small" onclick="copyToClipboard('${cleanExtract}')">📋 Copy</button>
-                        <button class="btn btn-secondary btn-small" onclick="shareContent('${cleanTitle}', '${data.content_urls?.desktop?.page || ''}')">📤 Share</button>
-                    </div>
-                </div>
-            `;
-            
-            animateResults();
-        }
+     function displayResult(data) {
+    const container = document.getElementById('resultsContainer');
+    const cleanExtract = data.extract || 'No summary available.';
+    const cleanExtractEscaped = cleanExtract
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"');
+
+    container.innerHTML = `
+        <div class="result-card">
+            <h3 class="result-title">${data.title}</h3>
+            <p class="result-summary">${cleanExtract}</p>
+            <div class="result-actions">
+                <a href="${data.content_urls?.desktop?.page || '#'}" target="_blank" class="btn btn-primary btn-small">📖 Read Full Article</a>
+                <button class="btn btn-secondary btn-small" onclick="speakText('${cleanExtractEscaped}')">🔊 Listen</button>
+                <button class="btn btn-secondary btn-small" onclick="copyToClipboard('${cleanExtractEscaped}')">📋 Copy</button>
+            </div>
+        </div>
+    `;
+
+    animateResults();
+}
+
 
         function displaySearchResults(results) {
             const container = document.getElementById('resultsContainer');
