@@ -17,12 +17,35 @@ app.get('/api/search', async (req, res) => {
     if (!query) return res.status(400).json({ error: 'Query parameter "q" is required' });
 
     try {
+        // First try direct summary
         const response = await axios.get(`${WIKI_API}/page/summary/${encodeURIComponent(query)}`);
         res.json(response.data);
     } catch {
-        res.status(404).json({ error: 'No summary found.' });
+        try {
+            // Fallback to Wikipedia search API
+            const searchResponse = await axios.get(`https://en.wikipedia.org/w/api.php`, {
+                params: {
+                    action: 'query',
+                    list: 'search',
+                    srsearch: query,
+                    format: 'json',
+                    origin: '*'
+                }
+            });
+
+            if (searchResponse.data.query.search.length > 0) {
+                const firstResult = searchResponse.data.query.search[0].title;
+                const summaryResponse = await axios.get(`${WIKI_API}/page/summary/${encodeURIComponent(firstResult)}`);
+                res.json(summaryResponse.data);
+            } else {
+                res.status(404).json({ error: 'No results found' });
+            }
+        } catch {
+            res.status(500).json({ error: 'Wikipedia search failed' });
+        }
     }
 });
+
 
 app.get('/api/random', async (req, res) => {
     try {
