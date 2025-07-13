@@ -602,39 +602,7 @@
         </div>
     </header>
 
-    <main>
-        <div class="container">
-            <section class="hero">
-                <h2 class="hero-title">Discover Knowledge</h2>
-                <p class="hero-subtitle">Your AI-powered gateway to Wikipedia's infinite wisdom</p>
-            </section>
-
-            <section class="search-section">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search Wikipedia..." id="searchInput">
-                    <div class="search-buttons">
-                        <button class="btn btn-primary" onclick="searchWikipedia()">🔍 Search</button>
-                        <button class="btn btn-secondary" onclick="getRandomArticle()">🎲 Random Article</button>
-                        <button class="btn btn-secondary" onclick="toggleSpeech()">🎤 Voice Search</button>
-                   <button class="btn btn-secondary" onclick="getDailyFact()">💡 Daily Fact</button>
-
-                    </div>
-                </div>
-            </section>
-
-            <div class="daily-fact" id="dailyFact">
-                <h3>💫 On This Day</h3>
-                <div id="dailyFactContent">Loading today's historical facts...</div>
-            </div>
-
-            <div class="search-history" id="searchHistory" style="display: none;">
-                <h3>🕐 Recent Searches</h3>
-                <div id="historyItems"></div>
-            </div>
-
-            <div class="results-container" id="resultsContainer"></div>
-        </div>
-    </main>
+<!--    hereeeeeeeeeeeeeeeeeee -->
 
     <script>
         // State management
@@ -884,7 +852,43 @@
                 historyContainer.classList.add('show');
             }
         }
+    </script>
+<!-- hereeeeeeeeeeeeeeeeeeee -->
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h2 class="hero-title">Discover Knowledge</h2>
+                <p class="hero-subtitle">Your AI-powered gateway to Wikipedia's infinite wisdom</p>
+            </section>
 
+            <section class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search Wikipedia..." id="searchInput">
+                    <div class="search-buttons">
+                        <button class="btn btn-primary" onclick="searchWikipedia()">🔍 Search</button>
+                        <button class="btn btn-secondary" onclick="getRandomArticle()">🎲 Random Article</button>
+                        <button class="btn btn-secondary" onclick="toggleSpeech()">🎤 Voice Search</button>
+                   <button class="btn btn-secondary" onclick="getDailyFact()">💡 Daily Fact</button>
+
+                    </div>
+                </div>
+            </section>
+
+            <div class="daily-fact" id="dailyFact">
+                <h3>💫 On This Day</h3>
+                <div id="dailyFactContent">Loading today's historical facts...</div>
+            </div>
+
+            <div class="search-history" id="searchHistory" style="display: none;">
+                <h3>🕐 Recent Searches</h3>
+                <div id="historyItems"></div>
+            </div>
+
+            <div class="results-container" id="resultsContainer"></div>
+        </div>
+    </main>
+<!-- hereeeeeeeeeeeeeeeeeeeeee -->
+<script
         function searchFromHistory(query) {
             document.getElementById('searchInput').value = query;
             searchWikipedia();
